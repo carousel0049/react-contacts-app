@@ -1,19 +1,39 @@
 {
-  "posts": [
+  "users": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "email": "john@gmail.com",
+      "password": "1111"
+    },
+    {
+      "id": 2,
+      "email": "bob@gmail.com",
+      "password": "2222"
+    },
+    {
+      "id": 3,
+      "email": "ann@gmail.com",
+      "password": "3333"
     }
   ],
-  "comments": [
+  "contacts": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "John",
+      "surname": "Smith",
+      "department": "Sales"
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "surname": "Anderson",
+      "department": "Marketing"
+    },
+    {
+      "id": 3,
+      "name": "Ann",
+      "surname": "Hadid",
+      "department": "IT"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
