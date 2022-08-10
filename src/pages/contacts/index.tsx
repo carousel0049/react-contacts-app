@@ -37,13 +37,22 @@ function Contacts() {
     },
     [addContact, newDepartmentInput, newSurnameInput, newNameInput, contacts]
   );
-
-  useEffect(() => {
+  const getContacts = () => {
     fetch("http://localhost:8000/contacts", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((contacts: ContactsInterface[]) => setContacts(contacts));
+  };
+  const deleteData = (id: string) => {
+    fetch(`http://localhost:8000/contacts/${id}`, {
+      method: "DELETE",
+    }).then((res) => res.json());
+    getContacts();
+  };
+
+  useEffect(() => {
+    getContacts();
   }, []);
 
   return (
@@ -98,7 +107,12 @@ function Contacts() {
             <li className="contacts__list">{contacts.surname}</li>
             <li className="contacts__list">{contacts.department}</li>
             <button className="contacts__list--btn btn--edit">Edit</button>
-            <button className="contacts__list--btn btn--delete">Delete</button>
+            <button
+              className="contacts__list--btn btn--delete"
+              onClick={() => deleteData(contacts.id)}
+            >
+              Delete
+            </button>
           </ul>
         ))}
       </nav>

@@ -11,6 +11,8 @@ export interface UserInterface {
 
 function Autorization() {
   const navigate = useNavigate();
+  const [emailFound, setEmailFound] = useState(true);
+  const [passwordFound, setPasswordFound] = useState(true);
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [emailInput, setEmailInput] = useState<string>("");
@@ -30,10 +32,13 @@ function Autorization() {
             );
             if (!currentUser) {
               console.error("User not Found!");
+              setEmailFound(false);
             } else if (currentUser.password !== passwordInput) {
               console.error("Password is Incorrect!");
+              setPasswordFound(false);
+              setEmailFound(true);
             } else {
-              console.log(authCtx);
+              setPasswordFound(true);
               authCtx?.signIn(currentUser);
               navigate("/contacts");
             }
@@ -60,7 +65,9 @@ function Autorization() {
   );
   return (
     <form onSubmit={submitHandler} className="form">
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email" className={emailFound ? " " : "invalid"}>
+        {emailFound ? "Email" : "Email not found"}
+      </label>
       <input
         type="email"
         id="email"
@@ -68,11 +75,12 @@ function Autorization() {
         onChange={(e) => setEmailInput(e.target.value)}
         value={emailInput}
       />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="email" className={passwordFound ? " " : "invalid"}>
+        {passwordFound ? "Password" : "Password is Incorrect"}
+      </label>
       <input
         type="password"
         id="password"
-        required
         onChange={(e) => setPasswordInput(e.target.value)}
         value={passwordInput}
       />
@@ -82,7 +90,6 @@ function Autorization() {
           <input
             type="password"
             id="password2"
-            required
             onChange={(e) => setPasswordConfirm(e.target.value)}
             value={passwordConfirm}
           />

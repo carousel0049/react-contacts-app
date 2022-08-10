@@ -45,7 +45,6 @@
       border-bottom: 1px solid #000;
     }
   }
-
   &__new-account {
     background: none;
     cursor: pointer;
@@ -58,4 +57,8 @@
     font-size: 0.8rem;
     color: rgb(58, 58, 216);
   }
+}
+
+.invalid {
+  color: rgb(255, 0, 0);
 }

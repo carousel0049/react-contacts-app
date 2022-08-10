@@ -21,19 +21,39 @@
       "id": 1,
       "name": "John",
       "surname": "Smith",
-      "department": "Sales"
+      "department": "IT"
     },
     {
       "id": 2,
       "name": "Bob",
-      "surname": "Anderson",
+      "surname": "Shmidth",
       "department": "Marketing"
     },
     {
       "id": 3,
       "name": "Ann",
-      "surname": "Hadid",
+      "surname": "Anderson",
+      "department": "Sales"
+    }
+  ],
+  "draft": [
+    {
+      "id": 1,
+      "name": "John",
+      "surname": "Smith",
       "department": "IT"
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "surname": "Shmidth",
+      "department": "Marketing"
+    },
+    {
+      "id": 3,
+      "name": "Ann",
+      "surname": "Anderson",
+      "department": "Sales"
     }
   ]
 }
