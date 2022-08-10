@@ -1,0 +1,117 @@
+.contacts {
+  padding: 20px 40px;
+  background-color: rgb(211, 211, 211);
+  height: 100vh;
+  color: #444;
+
+  &__title {
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  &__main-list {
+    background-color: rgba(134, 134, 134, 0.5);
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    justify-content: flex-start;
+  }
+  &__list {
+    width: 20%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.6rem;
+    border-right: 1px solid rgb(229, 229, 229);
+    &--btn {
+      background: none;
+      display: block;
+      border: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #000;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &--btn {
+      display: block;
+      padding: 5px 10px;
+      background: rgb(2, 163, 2);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 5px;
+      font-size: 1rem;
+      &:hover {
+        background: #fff;
+        color: #000;
+      }
+    }
+    &--search {
+      padding: 10px 5px;
+      text-indent: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #000;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  &__addContact--form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    & input {
+      width: 200px;
+      height: 20px;
+      margin-top: 10px;
+      border: 1px solid black;
+      background: #fff;
+      border-radius: 5px;
+      text-indent: 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+    & button {
+      display: block;
+      padding: 5px 10px;
+      background: rgb(2, 163, 2);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      width: 100px;
+      margin-top: 10px;
+      border-radius: 10px;
+      &:hover {
+        background: #fff;
+        color: #000;
+      }
+    }
+  }
+}
+
+.btn--1 {
+  &:hover {
+    color: rgb(2, 163, 2);
+  }
+}
+
+.btn--2 {
+  &:hover {
+    color: rgb(255, 0, 0);
+  }
+}

@@ -1,0 +1,62 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-70%);
+  & label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-top: 30px;
+    font-weight: bold;
+    width: 100%;
+  }
+  & input {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 1.2rem;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #000;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__btn {
+    background-color: #000;
+    color: #fff;
+    transition: all 0.3s;
+    border: none;
+    border-bottom: 1px solid transparent;
+    width: 100%;
+    display: block;
+    padding: 15px 5px;
+    margin-top: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      color: #000;
+      background-color: #fff;
+      border-bottom: 1px solid #000;
+    }
+  }
+
+  &__new-account {
+    background: none;
+    cursor: pointer;
+    display: block;
+    border: none;
+    padding: 20px 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 0.8rem;
+    color: rgb(58, 58, 216);
+  }
+}
