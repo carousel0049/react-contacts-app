@@ -1,8 +1,9 @@
-import React, { useCallback, useState, memo } from "react";
+import React, { useCallback, useState, memo, useContext } from "react";
 import "./index.scss";
+import AuthContext from "../../context/auth-context";
 import { useNavigate } from "react-router-dom";
 
-interface UserInterface {
+export interface UserInterface {
   id: string;
   email: string;
   password: string;
@@ -14,6 +15,7 @@ function Autorization() {
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [emailInput, setEmailInput] = useState<string>("");
   const [authType, setAuthType] = useState("sign-in");
+  const authCtx = useContext(AuthContext);
   const submitHandler = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
@@ -24,13 +26,15 @@ function Autorization() {
           .then((res) => res.json())
           .then((users) => {
             const currentUser = users.find(
-              (users: UserInterface) => users.email === emailInput
+              (user: UserInterface) => user.email === emailInput
             );
             if (!currentUser) {
               console.error("User not Found!");
             } else if (currentUser.password !== passwordInput) {
               console.error("Password is Incorrect!");
             } else {
+              console.log(authCtx);
+              authCtx?.signIn(currentUser);
               navigate("/contacts");
             }
           });
@@ -52,9 +56,8 @@ function Autorization() {
         setPasswordConfirm("");
       }
     },
-    [passwordInput, emailInput, navigate, authType, passwordConfirm]
+    [passwordInput, emailInput, authType, passwordConfirm, authCtx, navigate]
   );
-
   return (
     <form onSubmit={submitHandler} className="form">
       <label htmlFor="email">Email</label>
