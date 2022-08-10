@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import "./index.scss";
 
 interface ContactsInterface {
@@ -14,14 +14,6 @@ function Contacts() {
   const [newNameInput, setNewNameInput] = useState<string>("");
   const [newSurnameInput, setNewSurnameInput] = useState<string>("");
   const [newDepartmentInput, setNewDepartmentInput] = useState<string>("");
-
-  useEffect(() => {
-    fetch("http://localhost:8000/contacts", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((contacts: ContactsInterface[]) => setContacts(contacts));
-  }, []);
   const newContactFormHandler = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
@@ -45,6 +37,14 @@ function Contacts() {
     },
     [addContact, newDepartmentInput, newSurnameInput, newNameInput, contacts]
   );
+
+  useEffect(() => {
+    fetch("http://localhost:8000/contacts", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((contacts: ContactsInterface[]) => setContacts(contacts));
+  }, []);
 
   return (
     <div className="contacts">
@@ -97,8 +97,8 @@ function Contacts() {
             <li className="contacts__list">{contacts.name}</li>
             <li className="contacts__list">{contacts.surname}</li>
             <li className="contacts__list">{contacts.department}</li>
-            <button className="contacts__list--btn btn--1">Edit</button>
-            <button className="contacts__list--btn btn--2">Delete</button>
+            <button className="contacts__list--btn btn--edit">Edit</button>
+            <button className="contacts__list--btn btn--delete">Delete</button>
           </ul>
         ))}
       </nav>
@@ -106,4 +106,4 @@ function Contacts() {
   );
 }
 
-export default Contacts;
+export default memo(Contacts);

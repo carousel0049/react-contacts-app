@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, memo } from "react";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -9,12 +9,11 @@ interface UserInterface {
 }
 
 function Autorization() {
+  const navigate = useNavigate();
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [emailInput, setEmailInput] = useState<string>("");
   const [authType, setAuthType] = useState("sign-in");
-  const navigate = useNavigate();
-
   const submitHandler = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
@@ -101,4 +100,4 @@ function Autorization() {
   );
 }
 
-export default Autorization;
+export default memo(Autorization);
