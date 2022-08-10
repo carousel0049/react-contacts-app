@@ -6,6 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm run server:mock`
+
+Runs the json-server in the development mode.\
+Open [http://localhost:8000/users](http://localhost:8000/users) to view users in the browser.
+Open [http://localhost:8000/contacts](http://localhost:8000/contacts) to view contacts in the browser.
+
 ### `npm start`
 
 Runs the app in the development mode.\

@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "json-server": "^0.17.0",
     "node-sass": "^7.0.1"
   }
 }
