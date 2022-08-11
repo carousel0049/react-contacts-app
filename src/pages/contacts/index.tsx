@@ -10,12 +10,23 @@ interface ContactsInterface {
 
 function Contacts() {
   const [contacts, setContacts] = useState<ContactsInterface[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
+
   const [addContact, setAddContact] = useState(false);
   const [newNameInput, setNewNameInput] = useState<string>("");
   const [newSurnameInput, setNewSurnameInput] = useState<string>("");
   const [newDepartmentInput, setNewDepartmentInput] = useState<string>("");
-  const [searchInput, setSearchInput] = useState("");
+
   const [isEditing, setIsEditing] = useState(false);
+  const [editedNameInput, setEditedNameInput] = useState<string>("");
+  const [editedSurnameInput, setEditedSurnameInput] = useState<string>("");
+  const [editedDepartmentInput, setEditedDepartmentInput] =
+    useState<string>("");
+
+  const [contactIdToBeEdited, setContactIdToBeEdited] = useState<string | null>(
+    "null"
+  );
+
   const newContactFormHandler = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
@@ -60,11 +71,33 @@ function Contacts() {
       contact.department.toLowerCase() === searchInput.toLowerCase()
   );
 
-  const editContactsHandler = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    setIsEditing(false);
-    console.log("Contact Edited");
-  }, []);
+  const editContactsHandler = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsEditing(false);
+      fetch(`http://localhost:8000/contacts/${contactIdToBeEdited}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: editedNameInput,
+          surname: editedSurnameInput,
+          department: editedDepartmentInput,
+        }),
+      });
+      getContacts();
+      setEditedNameInput("");
+      setEditedSurnameInput("");
+      setEditedDepartmentInput("");
+    },
+    [
+      editedNameInput,
+      editedSurnameInput,
+      editedDepartmentInput,
+      contactIdToBeEdited,
+    ]
+  );
 
   useEffect(() => {
     getContacts();
@@ -79,13 +112,30 @@ function Contacts() {
               <h1>Edit Contact</h1>
               <div
                 className="contacts__editor-modal--close"
-                onClick={() => setIsEditing(!isEditing)}
+                onClick={() => {
+                  setIsEditing(!isEditing);
+                }}
               >
                 &times;
               </div>
-              <input type="text" placeholder="Name" />
-              <input type="text" placeholder="Surname" />
-              <input type="text" placeholder="Department" />
+              <input
+                type="text"
+                placeholder="Name"
+                onChange={(e) => setEditedNameInput(e.target.value)}
+                value={editedNameInput}
+              />
+              <input
+                type="text"
+                placeholder="Surname"
+                onChange={(e) => setEditedSurnameInput(e.target.value)}
+                value={editedSurnameInput}
+              />
+              <input
+                type="text"
+                placeholder="Department"
+                onChange={(e) => setEditedDepartmentInput(e.target.value)}
+                value={editedDepartmentInput}
+              />
               <button type="submit">Update</button>
             </form>
           </div>
@@ -149,7 +199,10 @@ function Contacts() {
             <li className="contacts__list">{contacts.department}</li>
             <button
               className="contacts__list--btn btn--edit"
-              onClick={() => setIsEditing(!isEditing)}
+              onClick={() => {
+                setContactIdToBeEdited(contacts.id);
+                setIsEditing(!isEditing);
+              }}
             >
               Edit
             </button>
