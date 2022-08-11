@@ -24,7 +24,7 @@ function Contacts() {
     useState<string>("");
 
   const [contactIdToBeEdited, setContactIdToBeEdited] = useState<string | null>(
-    "null"
+    null
   );
 
   const newContactFormHandler = useCallback(
@@ -122,7 +122,6 @@ function Contacts() {
                 type="text"
                 placeholder="Name"
                 onChange={(e) => setEditedNameInput(e.target.value)}
-                value={editedNameInput}
               />
               <input
                 type="text"

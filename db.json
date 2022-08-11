@@ -14,6 +14,11 @@
       "id": 3,
       "email": "ann@gmail.com",
       "password": "3333"
+    },
+    {
+      "email": "nana@gmail.com",
+      "password": "1111",
+      "id": 4
     }
   ],
   "contacts": [
@@ -30,10 +35,10 @@
       "department": "Marketing"
     },
     {
-      "id": 3,
       "name": "Ann",
       "surname": "Anderson",
-      "department": "Sales"
+      "department": "Sales",
+      "id": 3
     }
   ],
   "draft": [
