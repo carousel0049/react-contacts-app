@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, memo } from "react";
 import "./index.scss";
 
 interface ContactsInterface {
-  id: string;
+  id: number;
   name: string;
   surname: string;
   department: string;
@@ -23,9 +23,8 @@ function Contacts() {
   const [editedDepartmentInput, setEditedDepartmentInput] =
     useState<string>("");
 
-  const [contactIdToBeEdited, setContactIdToBeEdited] = useState<string | null>(
-    null
-  );
+  const [contactToBeEdited, setContactToBeEdited] =
+    useState<ContactsInterface | null>(null);
 
   const newContactFormHandler = useCallback(
     (e: React.FormEvent) => {
@@ -57,7 +56,7 @@ function Contacts() {
       .then((res) => res.json())
       .then((contacts: ContactsInterface[]) => setContacts(contacts));
   };
-  const deleteData = (id: string) => {
+  const deleteData = (id: number) => {
     fetch(`http://localhost:8000/contacts/${id}`, {
       method: "DELETE",
     }).then((res) => res.json());
@@ -75,17 +74,19 @@ function Contacts() {
     (e: React.FormEvent) => {
       e.preventDefault();
       setIsEditing(false);
-      fetch(`http://localhost:8000/contacts/${contactIdToBeEdited}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: editedNameInput,
-          surname: editedSurnameInput,
-          department: editedDepartmentInput,
-        }),
-      });
+      if (contactToBeEdited) {
+        fetch(`http://localhost:8000/contacts/${contactToBeEdited.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: editedNameInput,
+            surname: editedSurnameInput,
+            department: editedDepartmentInput,
+          }),
+        });
+      }
       getContacts();
       setEditedNameInput("");
       setEditedSurnameInput("");
@@ -95,13 +96,21 @@ function Contacts() {
       editedNameInput,
       editedSurnameInput,
       editedDepartmentInput,
-      contactIdToBeEdited,
+      contactToBeEdited,
     ]
   );
 
   useEffect(() => {
     getContacts();
   }, []);
+
+  useEffect(() => {
+    if (contactToBeEdited) {
+      setEditedNameInput(contactToBeEdited.name);
+      setEditedSurnameInput(contactToBeEdited.surname);
+      setEditedDepartmentInput(contactToBeEdited.department);
+    }
+  }, [contactToBeEdited]);
 
   return (
     <div className="contacts">
@@ -122,6 +131,7 @@ function Contacts() {
                 type="text"
                 placeholder="Name"
                 onChange={(e) => setEditedNameInput(e.target.value)}
+                value={editedNameInput}
               />
               <input
                 type="text"
@@ -199,7 +209,7 @@ function Contacts() {
             <button
               className="contacts__list--btn btn--edit"
               onClick={() => {
-                setContactIdToBeEdited(contacts.id);
+                setContactToBeEdited(contacts);
                 setIsEditing(!isEditing);
               }}
             >
