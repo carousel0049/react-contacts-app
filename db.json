@@ -18,10 +18,10 @@
   ],
   "contacts": [
     {
-      "name": "",
-      "surname": null,
-      "department": "",
-      "id": 1
+      "id": 1,
+      "name": "John",
+      "surname": "Smith",
+      "department": "IT"
     },
     {
       "id": 2,
@@ -30,10 +30,10 @@
       "department": "Marketing"
     },
     {
-      "name": "e",
-      "surname": "",
-      "department": "",
-      "id": 3
+      "id": 3,
+      "name": "Ann",
+      "surname": "Anderson",
+      "department": "Sales"
     }
   ],
   "draft": [

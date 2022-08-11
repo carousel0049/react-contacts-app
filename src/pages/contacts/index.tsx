@@ -65,10 +65,10 @@ function Contacts() {
   };
   const filteredList = contacts.filter(
     (contact) =>
-      !searchInput.toLowerCase() ||
-      contact.name.toLowerCase() === searchInput.toLowerCase() ||
-      contact.surname.toLowerCase() === searchInput.toLowerCase() ||
-      contact.department.toLowerCase() === searchInput.toLowerCase()
+      !searchInput ||
+      contact.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+      contact.surname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      contact.department.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   const editContactsHandler = useCallback(
