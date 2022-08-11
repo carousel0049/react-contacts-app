@@ -60,6 +60,12 @@ function Contacts() {
       contact.department.toLowerCase() === searchInput.toLowerCase()
   );
 
+  const editContactsHandler = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    setIsEditing(false);
+    console.log("Contact Edited");
+  }, []);
+
   useEffect(() => {
     getContacts();
   }, []);
@@ -69,7 +75,7 @@ function Contacts() {
       {isEditing && (
         <>
           <div className="contacts__editor-modal">
-            <form>
+            <form onSubmit={editContactsHandler}>
               <h1>Edit Contact</h1>
               <div
                 className="contacts__editor-modal--close"
@@ -80,6 +86,7 @@ function Contacts() {
               <input type="text" placeholder="Name" />
               <input type="text" placeholder="Surname" />
               <input type="text" placeholder="Department" />
+              <button type="submit">Update</button>
             </form>
           </div>
           <div
