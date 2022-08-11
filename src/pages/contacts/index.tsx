@@ -14,6 +14,7 @@ function Contacts() {
   const [newNameInput, setNewNameInput] = useState<string>("");
   const [newSurnameInput, setNewSurnameInput] = useState<string>("");
   const [newDepartmentInput, setNewDepartmentInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState("");
   const newContactFormHandler = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
@@ -50,6 +51,13 @@ function Contacts() {
     }).then((res) => res.json());
     getContacts();
   };
+  const filteredList = contacts.filter(
+    (contact) =>
+      !searchInput.toLowerCase() ||
+      contact.name.toLowerCase() === searchInput.toLowerCase() ||
+      contact.surname.toLowerCase() === searchInput.toLowerCase() ||
+      contact.department.toLowerCase() === searchInput.toLowerCase()
+  );
 
   useEffect(() => {
     getContacts();
@@ -69,6 +77,9 @@ function Contacts() {
           className="contacts__actions--search"
           type="text"
           placeholder="Search..."
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+          }}
         />
       </div>
       {addContact && (
@@ -101,7 +112,7 @@ function Contacts() {
         </form>
       )}
       <nav>
-        {contacts?.map((contacts: ContactsInterface) => (
+        {filteredList.map((contacts: ContactsInterface) => (
           <ul key={contacts.id} className="contacts__main-list">
             <li className="contacts__list">{contacts.name}</li>
             <li className="contacts__list">{contacts.surname}</li>
